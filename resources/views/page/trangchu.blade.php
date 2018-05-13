@@ -63,7 +63,7 @@
 							</div>
 							@endforeach
 						</div>
-						<div class="row-paging">{{$new_product->links()}}</div>
+						<div class="row-paging">{{$new_product->appends(['new_product' => $new_product->currentPage()])->links()}}</div>
 					</div> <!-- .beta-products-list -->
 
 					<div class="space50">&nbsp;</div>
@@ -97,7 +97,7 @@
 							@endforeach
 						</div>
 						<div class="space40">&nbsp;</div>
-						<div class="row-paging">{{$sale_product->links()}}</div>
+						<div class="row-paging">{{$sale_product->appends(['sale_product' => $sale_product->currentPage()])->links()}}</div>
 					</div> <!-- .beta-products-list -->
 				</div>
 			</div> <!-- end section with sidebar and main content -->

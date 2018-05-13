@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Slide;
 use App\Product;
+use App\ProductType;
 use Illuminate\Pagination\Paginator;
 
 use Illuminate\Http\Request;
@@ -14,20 +15,24 @@ class PageController extends Controller
         $slide = Slide::all();
         $new_product = Product::where('new', 1)->paginate(4, ['*'], 'new_product');
         $sale_product = Product::where('promotion_price', '<>', 0)->paginate(8, ['*'], 'sale_product');
+                   
     	return view('page.trangchu', compact('slide', 'new_product', 'sale_product'));
     }
 
     public function getLoai() {
         $sp_theoloai = Product::paginate(18);
         $sp_khac = null;
-        return view('page.loai_sanpham', compact('sp_theoloai', 'sp_khac'));
+        $loai_sp = ProductType::all();  
+        return view('page.loai_sanpham', compact('sp_theoloai', 'sp_khac', 'loai_sp'));
     }
 
     public function getLoaiSp($type) {
         $sp_theoloai = Product::where('id_type', $type)->paginate(6, ['*'], 'sp_theoloai');
         
         $sp_khac = Product::where('id_type', '<>', $type)->paginate(3, ['*'], 'sp_khac');
-    	return view('page.loai_sanpham', compact('sp_theoloai', 'sp_khac'));
+
+        $loai_sp = ProductType::all();
+    	return view('page.loai_sanpham', compact('sp_theoloai', 'sp_khac', 'loai_sp'));
     }
 
     public function getChiTietSp() {
